@@ -1,7 +1,9 @@
+package id_639;
+
 import java.io.*;
 import java.util.*;
 
-public class Template {
+public class D {
     public static void main(String[] args) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(in.readLine());
@@ -9,6 +11,7 @@ public class Template {
 
         }
     }
+
     public static boolean okcheck(int[] a){
         return true;
     }

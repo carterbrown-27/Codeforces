@@ -1,3 +1,5 @@
+package id_639;
+
 import java.io.*;
 import java.util.*;
 
@@ -6,19 +8,15 @@ public class A {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(in.readLine());
         for(int t = 0; t < T; t++){
-            int n = Integer.parseInt(in.readLine());
-            boolean odd = false;
-            boolean even = false;
             StringTokenizer st = new StringTokenizer(in.readLine());
-            for(int i = 0; i < n; i++){
-                if(Integer.parseInt(st.nextToken()) % 2 == 0){
-                    even = true;
-                }else{
-                    odd = true;
-                }
-            }
+            int n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
 
-            System.out.println(((n%2==1 && odd) || (n%2==0 && odd && even)) ? "YES" : "NO");
+            if((n == 1 || m == 1) || (n==2 && m==2)){
+                System.out.println("YES");
+            }else{
+                System.out.println("NO");
+            }
         }
     }
 
