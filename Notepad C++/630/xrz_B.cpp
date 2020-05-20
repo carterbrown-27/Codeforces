@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <array>
-#include <iostream>
-#include <algorithm>
-#include <utility>
-#include <string>
-#include <set>
-#include <vector>
-#include <cstring>
+#include <bits/stdc++.h>
 
 using namespace std;
 
