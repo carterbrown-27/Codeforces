@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adb26054-3cc0-4043-a534-777a771f610b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ICPC_D_IN.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ICPC/ICPC_B.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ICPC/ICPC_C.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ICPC/ICPC_D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ICPC/ICPC_E.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ICPC/ICPC19_C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Codeforces/ICPC_A$Animal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Codeforces/ICPC_A$Sheep.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Codeforces/ICPC_A$Wolf.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Codeforces/ICPC_A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ICPC_A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ICPC/ICPC_A.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ICPC/ICPC_E.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ICPC/ICPC_E.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +41,15 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.ICPC_E">
-    <configuration name="D" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="D" />
+    <configuration name="ICPC19_C" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ICPC.ICPC19_C" />
       <module name="Codeforces" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ICPC.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -105,10 +103,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.ICPC_E" />
+        <item itemvalue="Application.ICPC19_C" />
         <item itemvalue="Application.ICPC_D" />
         <item itemvalue="Application.ICPC_B" />
         <item itemvalue="Application.ICPC_A" />
-        <item itemvalue="Application.D" />
       </list>
     </recent_temporary>
   </component>
@@ -135,33 +133,45 @@
       <option name="presentableId" value="Default" />
       <updated>1586802238895</updated>
     </task>
+    <task id="LOCAL-00001" summary="More ICPC (D solution, E almost perfect, B approximation, C template)">
+      <created>1590114990581</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1590114990581</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="More ICPC (D solution, E almost perfect, B approximation, C template)" />
+    <option name="LAST_COMMIT_MESSAGE" value="More ICPC (D solution, E almost perfect, B approximation, C template)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586807553121">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1586807553121" />
-    <state x="424" y="8" key="CommitChangelistDialog2" timestamp="1590114963918">
+    <state x="424" y="8" key="CommitChangelistDialog2" timestamp="1590114988282">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="424" y="8" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590114963918" />
-    <state width="1493" height="156" key="GridCell.Tab.0.bottom" timestamp="1590114963996">
+    <state x="424" y="8" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590114988282" />
+    <state width="1493" height="156" key="GridCell.Tab.0.bottom" timestamp="1590203288989">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="156" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590114963996" />
-    <state width="1493" height="156" key="GridCell.Tab.0.center" timestamp="1590114963996">
+    <state width="1493" height="156" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590203288989" />
+    <state width="1493" height="156" key="GridCell.Tab.0.center" timestamp="1590203288989">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="156" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590114963996" />
-    <state width="1493" height="156" key="GridCell.Tab.0.left" timestamp="1590114963995">
+    <state width="1493" height="156" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590203288989" />
+    <state width="1493" height="156" key="GridCell.Tab.0.left" timestamp="1590203288989">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="156" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590114963995" />
-    <state width="1493" height="156" key="GridCell.Tab.0.right" timestamp="1590114963996">
+    <state width="1493" height="156" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590203288989" />
+    <state width="1493" height="156" key="GridCell.Tab.0.right" timestamp="1590203288989">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="156" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590114963996" />
+    <state width="1493" height="156" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590203288989" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1589399336427">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -178,14 +188,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1589399336427" />
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1590112899680">
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1590202437019">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590112899680" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1588517365350">
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590202437019" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1590203146783">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1588517365350" />
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1590203146783" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1589399756989">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
