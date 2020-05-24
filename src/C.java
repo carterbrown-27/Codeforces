@@ -1,5 +1,4 @@
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class C {
@@ -9,13 +8,13 @@ public class C {
         for(int t = 0; t < T; t++){
             int n = Integer.parseInt(in.readLine());
             char[] str = in.readLine().toCharArray();
-            HashMap<Point,Integer> map = new HashMap<>();
+            HashMap<HPoint,Integer> map = new HashMap<>();
             int l = -1;
             int r = 0;
-            Point curr = new Point(0,0);
+            HPoint curr = new HPoint(0,0);
             map.put(curr, 0);
             for(int i = 1; i <= n; i++){
-                Point tmp = new Point(curr.x, curr.y);
+                HPoint tmp = new HPoint(curr.x, curr.y);
                 if(str[i-1] == 'U'){
                     tmp.y++;
                 }else if(str[i-1] == 'D'){
@@ -38,10 +37,10 @@ public class C {
         }
     }
 
-    public static class Point {
+    public static class HPoint {
         int x;
         int y;
-        Point(int x, int y){
+        HPoint(int x, int y){
             this.x = x;
             this.y = y;
         }
@@ -53,8 +52,8 @@ public class C {
 
         @Override
         public boolean equals(Object o){
-            if(o instanceof Point){
-                Point p = (Point) o;
+            if(o instanceof HPoint){
+                HPoint p = (HPoint) o;
                 return p.x == this.x && p.y == this.y;
             }
             return false;
