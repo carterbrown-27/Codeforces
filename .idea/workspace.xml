@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adb26054-3cc0-4043-a534-777a771f610b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ICPC/STU18_D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ICPC/STU18_F.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/C.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notepad C++/A.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Notepad C++/A.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notepad C++/A.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Notepad C++/A.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,10 +198,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="349" y="156" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1590265545892" />
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1590273558689">
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1590529622133">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590273558689" />
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590529622133" />
     <state x="463" y="10" width="609" height="804" key="find.popup" timestamp="1590264704811">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
