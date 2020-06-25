@@ -29,3 +29,27 @@ Add Two Numbers II
 Numbers With Same Consecutive Differences
 Rotate Function
 K-diff Pairs in Array
+Binary Tree Level Order Traversal
+Single Element in Sorted Array
+Maximum Frequency Stack
+Implement Trie
+Permutations
+Student Attendance Record I
+Network Delay Time
+Nim Game
+Hamming Distance
+First Bad Version
+Snapshot Array
+Lowest Common Ancestor of a Binary Search Tree
+Compare Version Numbers
+Multiply Strings
+Minimum Depth of Binary Tree
+Random Pick Index
+Climbing Stairs
+Add Digits
+Bulb Switcher
+Range Sum Query 2D - Immutable
+Intersection of Two Arrays
+Smallest Subtree with all the Deepest Nodes
+Convert Sorted Array to Binary Search Tree
+Implement strStr()
