@@ -9,14 +9,16 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-	int n;
-	cin >> n;
-	
-	for(int i = 0; i < n; i++){
-		cout << 1000 << " ";
+	int x,y,n;
+	cin >> x >> y >> n;
+	int mx = (n/x)*x;
+	int ans = y;
+	if(mx+y <= n){
+		ans = mx+y;
+	}else{
+		ans = mx-(x-y);
 	}
-	
-	cout << endl;
+	cout << ans << endl;
 }
 
 int main() {

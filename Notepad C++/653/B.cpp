@@ -9,7 +9,23 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
+	int n;
+	cin >> n;
+	int c = 0;
+	while(n>1){
+		while(n%6==0){
+			n/=6;
+			c++;
+		}
+		if(n%3==0){
+			n*=2;
+			c++;
+		}else{
+			break;
+		}
+	}
 	
+	cout << (n == 1 ? c : -1) << endl;
 }
 
 int main() {

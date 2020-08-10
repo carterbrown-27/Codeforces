@@ -8,31 +8,27 @@ typedef pair<ll,ll> pll;
 #define pb push_back
 #define mp make_pair
 
-bool isPrime(int n){
-	for(int i = 2; i*i <= n; i++){
-		if(n%i == 0) return false;
-	}
-	return true;
-}
-
 void solve() {
 	int n;
 	cin >> n;
-	const string a = "Ashishgup";
-	const string f = "FastestFinger";
-	if(n == 1){
-		cout << f << endl;
-	}else if(n%2==1 || n == 2){
-		cout << a << endl;
-	}else{
-		for(int i = 2; i*i <= n; i++){
-			if(n%i == 0 && ((i%2==1 && isPrime(i)) || (i > 2 && (n/i)%2 == 1 && isPrime(n/i)))){
-				cout << a << endl;
-				return;
+	int insegs = 0;
+	bool cont = false;
+	bool sorted = true;
+	for(int i = 1; i <= n; i++){
+		int v;
+		cin >> v;
+		if(v!=i){
+			sorted = false;
+			if(!cont){
+				cont = true;
+				insegs++;
 			}
+		}else{
+			cont = false;
 		}
-		cout << f << endl;
 	}
+	
+	cout << (sorted ? 0 : (insegs == 1 ? 1 : 2)) << endl;
 }
 
 int main() {

@@ -11,12 +11,7 @@ typedef pair<ll,ll> pll;
 void solve() {
 	int n;
 	cin >> n;
-	
-	for(int i = 0; i < n; i++){
-		cout << 1000 << " ";
-	}
-	
-	cout << endl;
+	cout << n/2 << endl;
 }
 
 int main() {

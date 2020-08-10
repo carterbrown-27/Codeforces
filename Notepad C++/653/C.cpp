@@ -11,12 +11,27 @@ typedef pair<ll,ll> pll;
 void solve() {
 	int n;
 	cin >> n;
-	
+	string s;
+	cin >> s;
+	int unc = 0;
 	for(int i = 0; i < n; i++){
-		cout << 1000 << " ";
+		if(s[i] == '('){
+			unc++;
+		}else if(unc > 0){
+			unc--;
+		}
 	}
 	
-	cout << endl;
+	int uno = 0;
+	for(int i = n; i-- > 0;){
+		if(s[i] == ')'){
+			uno++;
+		}else if(uno > 0){
+			uno--;
+		}
+	}
+	
+	cout << min(uno,unc) << endl;
 }
 
 int main() {
