@@ -9,18 +9,16 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-	int a,b;
-	cin >> a >> b;
-	int d = abs(a-b);
+	int n = 1e6;
+	// cin >> n;
+	ll sum = n*(n+1)/2;
+	ll sqsum = n*(n+1)*(2*n + 1)/6;
 	
-	cout << d/10 + (d % 10 > 0) << endl;
+	cout << (sum*sum)-sqsum << endl;
+	// 131906964621155232
 }
 
 int main() {
-	int t;
-	cin >> t;
-	for (int i = 0; i < t; i++) {
-		solve();
-	}
+	solve();
 	return 0;
 }

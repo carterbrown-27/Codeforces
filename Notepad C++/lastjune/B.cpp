@@ -9,24 +9,22 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-	int a,b,x,y,n;
-	cin >> a >> b >> x >> y >> n;
+	int n;
+	cin >> n;
 	
-	int la = max(a-n, x);
-	int lb = max(b-n, y);
-	
-	int fa = a, fb = b;
-	if(la <= lb){
-		fa = la;
-		n -= (a-la);
-		fb = max(b-n, y);
+	if(n%2 == 0){
+		cout << n/2 << " " << n/2 << endl;
+		return;
 	}else{
-		fb = lb;
-		n -= (b-lb);
-		fa = max(a-n, x);
+		for(int i = sqrt(n); i >= 1; i--){
+			if((n-i)%i == 0){
+				cout << i << " " << n-i << endl;
+				return;
+			}
+		}
 	}
 	
-	cout << 1ll * fa * fb << endl;
+	cout << 1 << " " << n-1 << endl;
 }
 
 int main() {
