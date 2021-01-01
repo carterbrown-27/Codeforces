@@ -9,54 +9,31 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-	int n,x,y;
-	cin >> n >> x >> y;
+	string a;
+	cin >> a;
+	int n = a.length();
 	
-	int d = y-x;
-	for(int i = 1; i <= 50; i++){
-		if(d%i != 0) continue;
+	int ans = 0;
+	for(int i = 1; i < n; i++){
+		char tb = (i-2 >= 0) ? a[i-2] : 0;
 		
-		vector<int> ans;
-		int c = n;
-		
-		// go up to y from x
-		bool reached = false;
-		int v = x;
-		while(c > 0){
-			ans.push_back(v);
-			c--;
-			if(v == y){
-				reached = true;
-				break;
+		if(a[i-1] == a[i] || tb == a[i]){
+			ans++;
+			unordered_set<char> surr;
+			for(int j = max(i-2,0); j <= min(i+2,n-1); j++){
+				surr.insert(a[j]);
 			}
-			v += i;
-		}
-		
-		// go down from x to 0
-		v = x;
-		while(c > 0 && v-i > 0){
-			v -= i;
-			ans.push_back(v);
-			c--;
-		}
-		
-		v = y;
-		while(c > 0){
-			v += i;
-			ans.push_back(v);
-			c--;
-		}
-		
-		if(reached && c == 0){
-			for(int a: ans){
-				cout << a << " ";
+			
+			for(char c = 'a'; c <= 'z'; c++){
+				if(surr.find(c) == surr.end()){
+					a[i] = c;
+					break;
+				}
 			}
-			cout << endl;
-			return;
 		}
 	}
 	
-	cout << "end" << endl;
+	cout << ans << "\n";
 }
 
 int main() {

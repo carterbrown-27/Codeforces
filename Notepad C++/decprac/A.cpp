@@ -9,21 +9,10 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-	int n;
-	cin >> n;
-	int a[n];
-	for(int i = 0; i < n; i++){
-		cin >> a[i];
-	}
-	
-	set<int> diffs;
-	for(int i = 0; i < n; i++){
-		for(int j = 0; j < i; j++){
-			diffs.insert(a[i]-a[j]);
-		}
-	}
-	
-	cout << diffs.size() << endl;
+	int a,b,c;
+	cin >> a >> b >> c;
+	int s = a+b+c;
+	cout << ((s % 9 == 0) && (s/9 <= min(min(a,b),c)) ? "YES" : "NO") << endl;
 }
 
 int main() {

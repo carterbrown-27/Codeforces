@@ -11,19 +11,24 @@ typedef pair<ll,ll> pll;
 void solve() {
 	int n;
 	cin >> n;
-	int a[n];
+	
+	vector<int> a;
+	int d = 0;
+	
 	for(int i = 0; i < n; i++){
-		cin >> a[i];
+		char c;
+		cin >> c;
+		a.pb(c-'0');
 	}
 	
-	set<int> diffs;
 	for(int i = 0; i < n; i++){
-		for(int j = 0; j < i; j++){
-			diffs.insert(a[i]-a[j]);
-		}
+		char c;
+		cin >> c;
+		int v = c-'0';
+		d += (v > a[i] ? -1 : (v < a[i]));
 	}
 	
-	cout << diffs.size() << endl;
+	cout << (d == 0 ? "EQUAL" : (d > 0 ? "RED" : "BLUE")) << endl;
 }
 
 int main() {
