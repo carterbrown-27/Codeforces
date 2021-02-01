@@ -9,27 +9,13 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-	int n, k;
-	cin >> n >> k;
-	
-	ll f;
-	cin >> f;
-	
-	ll sum = 0;
-	for(int i = 1; i < n; i++){
-		ll v;
-		cin >> v;
-		
-		if(v*100 > f*k){
-			ll nf = (v*100)/k + ((v*100)%k > 0);
-			sum += nf-f;
-			f = nf;
-		}
-		
-		f += v;
+	int n;
+	cin >> n;
+	if((n%2020) <= n/2020){
+		cout << "YES" << endl;
+	}else{
+		cout << "NO" << endl;
 	}
-	
-	cout << sum << endl;
 }
 
 int main() {

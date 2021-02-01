@@ -12,97 +12,37 @@ void solve() {
 	int n;
 	cin >> n;
 	
-	int w[n];
-	int sum = 0;
-	for(int i = 0; i < n; i++){
-		cin >> w[i];
-		sum += w[i];
+	string s;
+	cin >> s;
+	
+	// pos, flip
+	int l[n+1][2], r[n+1][2];
+	
+	l[0][0] = l[0][1] = 1;
+	for(int i = 1; i <= n; i++){
+		l[i][false] = (s[i-1] == 'L' ? l[i-1][true] : 0) + 1;
+		l[i][true] = (s[i-1] == 'R' ? l[i-1][false] : 0) + 1;
 	}
 	
-	vector<set<int>> graph(n);
-	for(int i = 0; i < n-1; i++){
-		int u, v;
-		cin >> u >> v;
-		u--;
-		v--;
-		graph[u].insert(v);
-		graph[v].insert(u);
+	/*
+	for(int i = 0; i <= n; i++){
+		cout << l[i][false] << " ";
 	}
-
+	cout << endl;
+	*/
 	
-	// emplace internal nodes with leaf children into queue
-	// weight, node
-	priority_queue<pair<int, pair<int,int>>> q;
-	for(int i = 0; i < n; i++){
-		if(graph[i].size() == 1){
-			int v = *(graph[i].begin());
-			q.push(mp(w[v], mp(v,i)));
-		}
+	r[n][0] = r[n][1] = 1;
+	for(int i = n-1; i >= 0; i--){
+		r[i][false] = (s[i] == 'R' ? r[i+1][true] : 0) + 1;
+		r[i][true] = (s[i] == 'L' ? r[i+1][false] : 0) + 1;
 	}
 	
-	set<pair<int,int>> secure;
-	
-	// do each colouring
-	cout << sum << " ";
-	for(int c = 0; c < n-1; c++){
-		if(q.empty()){
-			cout << "unexpected end\n";
-			break;
-		}
-		
-		auto p = q.top();
-		
-		pair<int,int> e = p.second;
-		int mx = p.first;
-		int mxi = e.first;
-		int prev = e.second;
-		
-		bool flag = true;
-		while(flag){
-			flag = false;
-			vector<pair<int,int>> tmp;
-			int tmxi = mxi;
-			int tprev = prev;
-			
-			for(int v: graph[tmxi]){
-				// find new max
-				auto ne = mp(v, tprev);
-				if(secure.find(ne) != secure.end()) continue;
-				
-				if(v != tprev){
-					if(w[v] > mx){
-						q.push(mp(mx, mp(mxi,tprev)));
-						mx = w[v];
-						prev = tmxi;
-						mxi = v;
-						flag = true;
-					}else{
-						q.push(mp(w[v], mp(v,tprev)));
-					}
-				}else{
-					tmp.pb(mp(v,tprev));
-				}
-				// cout << v << endl;
-			}
-			
-			if(flag){
-				for(auto p: tmp){
-					q.push(mp(w[p.first], p));
-				}
-			}
-			
-			secure.insert(mp(prev, mxi));
-			secure.insert(mp(mxi, prev));
-			cout << "@" << prev << " " << mxi <<  "\n";
-		}
-		
-		if(c >= 1){
-			sum += mx;
-			cout << sum << " ";
-		}
+	for(int i = 0; i <= n; i++){
+		cout << l[i][false] + r[i][false] - 1 << " ";
 	}
-	cout << "\n";
+	cout << endl;
 }
+
 int main() {
 	int t;
 	cin >> t;

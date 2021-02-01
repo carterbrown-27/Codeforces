@@ -9,27 +9,18 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-	int n, k;
-	cin >> n >> k;
-	
-	ll f;
-	cin >> f;
-	
+	int n, x;
+	cin >> n >> x;
 	ll sum = 0;
-	for(int i = 1; i < n; i++){
-		ll v;
+	ll mxb = 0;
+	for(int i = 0; i < n; i++){
+		int v;
 		cin >> v;
-		
-		if(v*100 > f*k){
-			ll nf = (v*100)/k + ((v*100)%k > 0);
-			sum += nf-f;
-			f = nf;
-		}
-		
-		f += v;
+		sum += v;
+		mxb += v/x + (v % x > 0);
 	}
 	
-	cout << sum << endl;
+	cout << sum / x + (sum % x > 0) << " " << mxb << "\n";
 }
 
 int main() {

@@ -8,28 +8,29 @@ typedef pair<ll,ll> pll;
 #define pb push_back
 #define mp make_pair
 
+int gcd(int a, int b){
+	if(b == 0) return a;
+	gcd(b, a % b);
+}
+
 void solve() {
-	int n, k;
-	cin >> n >> k;
+	int n;
+	cin >> n;
 	
-	ll f;
-	cin >> f;
-	
-	ll sum = 0;
-	for(int i = 1; i < n; i++){
-		ll v;
-		cin >> v;
-		
-		if(v*100 > f*k){
-			ll nf = (v*100)/k + ((v*100)%k > 0);
-			sum += nf-f;
-			f = nf;
-		}
-		
-		f += v;
+	int a[n];
+	for(int i = 0; i < n; i++){
+		cin >> a[i];
 	}
 	
-	cout << sum << endl;
+	
+	
+	int q;
+	cin >> q;
+	for(int i = 0; i < q; i++){
+		ll w;
+		cin >> w;
+		
+	}
 }
 
 int main() {
