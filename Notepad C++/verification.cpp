@@ -1,1 +1,0 @@
-This is to verify my codeforces account on a discord.

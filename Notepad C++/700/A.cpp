@@ -9,12 +9,24 @@ typedef pair<ll,ll> pll;
 #define mp make_pair
 
 void solve() {
-
+	string s;
+	cin >> s;
+	int n = s.length();
+	
+	for(int i = 0; i < n; i++){
+		if(i%2 == 0){
+			// alice
+			cout << (s[i] == 'a' ? 'b' : 'a');
+		}else{
+			// bob
+			cout << (s[i] == 'z' ? 'y' : 'z');
+		}
+	}
+	
+	cout << endl;
 }
 
 int main() {
-	ios::sync_with_stdio(false);
-	
 	int t;
 	cin >> t;
 	for (int i = 0; i < t; i++) {
