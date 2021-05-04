@@ -3,17 +3,25 @@
 using namespace std;
 
 typedef long long ll;
-typedef pair<ll,ll> pll;
+
+template<typename T>
+using minpq = priority_queue<T, vector<T>, greater<T>>;
+
+template<typename T>
+using uset = unordered_set<T>;
+
+template<typename T, typename U>
+using umap = unordered_map<T,U>;
 
 #define pb push_back
-#define mp make_pair
 
+// ones/zeroes
 template <typename T>
 struct segtree {
 	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
+	static const int DV = 0;
 	
 	T assoc(T a, T b){
 		return a + b;
@@ -22,15 +30,15 @@ struct segtree {
 	void init(int n){
 		size = 1;
 		while(size < n) size*=2;
-		sums.assign(2*size, DV);
+		sums.resize(2*size);
 	}
 	
-	void init(vector<T> &a){
+	void init(vector<int> &a){
 		init(a.size());
 		build(a);
 	}
 	
-	void build(vector<T> &a, int x, int lx, int rx){
+	void build(vector<int> &a, int x, int lx, int rx){
 		// if in bottom layer, check if within "actual" elems (not added 0s)
 		if(rx-lx == 1){
 			if(lx < a.size()){
@@ -45,19 +53,19 @@ struct segtree {
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
 	}
 	
-	void build(vector<T> &a){
+	void build(vector<int> &a){
 		build(a, 0, 0, size);
 	}
 	
-	void set(int i, T v){
+	void set(int i){
 		if(i < 0 || i >= size) return;
-		set(i, v, 0, 0, size);
+		set(i, 0, 0, size);
 	}
 	
-	void set(int i, T v, int x, int lx, int rx){
+	void set(int i, int x, int lx, int rx){
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
-			sums[x] = v;
+			sums[x] = 1 - sums[x];
 			return;
 		}
 		
@@ -65,10 +73,10 @@ struct segtree {
 		// i is in left
 		if(i < m){
 			// goto left node
-			set(i, v, 2*x + 1, lx, m);
+			set(i, 2*x + 1, lx, m);
 		}else{
 			// goto right node
-			set(i, v, 2*x + 2, m, rx);
+			set(i, 2*x + 2, m, rx);
 		}
 		
 		// doesn't go o.o.b as x is not a leaf
@@ -82,7 +90,7 @@ struct segtree {
 	T sum(int l, int r, int x, int lx, int rx){
 		
 		// segment is completely outside
-		if(rx <= l || lx >= r) return DV;
+		if(rx <= l || lx >= r) return 0;
 		
 		// segment is completely contained
 		if(l <= lx && rx <= r) return sums[x];
@@ -90,32 +98,45 @@ struct segtree {
 		// segment is partially contained (recursive case)
 		int m = (lx+rx)/2;
 		
-		return assoc(sum(l, r, 2*x + 1, lx, m), sum(l, r, 2*x + 2, m, rx));
+		return sum(l, r, 2*x + 1, lx, m) + sum(l, r, 2*x + 2, m, rx);
 	}
 };
 
-void solve() {
-	int n, m;
-	cin >> n >> m;
+vector<int> subprob(vector<int>& a, int n){
+	segtree<int> sgt;
+	sgt.init(2*n);
 	
-	vector<int> v(n);
-	for(int i = 0; i < n; i++){
-		cin >> v[i];
-	}
+	vector<int> ls(n+1, -1);
+	vector<int> res(n);
 	
-	segtree<ll> sgt;
-	sgt.init(v);
-	
-	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
-	
-		if(o == 1){
-			sgt.set(a,b);
-		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
+	for(int i = 0; i < 2*n; i++){
+		int v = a[i];
+		if(ls[v] == -1){
+			ls[v] = i;
+			sgt.set(i);
+		}else{
+			sgt.set(ls[v]);
+			res[v-1] = sgt.sum(ls[v], i);
 		}
 	}
+	return res;
+}
+
+void solve() {
+	int n;
+	cin >> n;
+	
+	vector<int> a(2*n);
+	for(int i = 0; i < 2*n; i++)
+		cin >> a[i];
+	
+	vector<int> l = subprob(a, n);
+	reverse(a.begin(), a.end());
+	vector<int> r = subprob(a, n);
+	
+	for(int i = 0; i < n; i++)
+		cout << l[i] + r[i] << " ";
+	cout << endl;
 }
 
 int main() {

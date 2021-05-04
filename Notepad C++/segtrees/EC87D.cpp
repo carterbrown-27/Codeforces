@@ -3,17 +3,21 @@
 using namespace std;
 
 typedef long long ll;
-typedef pair<ll,ll> pll;
+
+template<typename T>
+using minpq = priority_queue<T, vector<T>, greater<T>>;
+
+template<typename T, typename U>
+using umap = unordered_map<T,U>;
 
 #define pb push_back
-#define mp make_pair
 
 template <typename T>
 struct segtree {
 	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
+	static const int DV = 0;
 	
 	T assoc(T a, T b){
 		return a + b;
@@ -25,12 +29,12 @@ struct segtree {
 		sums.assign(2*size, DV);
 	}
 	
-	void init(vector<T> &a){
+	void init(vector<int> &a){
 		init(a.size());
 		build(a);
 	}
 	
-	void build(vector<T> &a, int x, int lx, int rx){
+	void build(vector<int> &a, int x, int lx, int rx){
 		// if in bottom layer, check if within "actual" elems (not added 0s)
 		if(rx-lx == 1){
 			if(lx < a.size()){
@@ -45,19 +49,19 @@ struct segtree {
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
 	}
 	
-	void build(vector<T> &a){
+	void build(vector<int> &a){
 		build(a, 0, 0, size);
 	}
 	
-	void set(int i, T v){
+	void add(int i, int v){
 		if(i < 0 || i >= size) return;
-		set(i, v, 0, 0, size);
+		add(i, v, 0, 0, size);
 	}
 	
-	void set(int i, T v, int x, int lx, int rx){
+	void add(int i, int v, int x, int lx, int rx){
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
-			sums[x] = v;
+			sums[x]+=v;
 			return;
 		}
 		
@@ -65,10 +69,10 @@ struct segtree {
 		// i is in left
 		if(i < m){
 			// goto left node
-			set(i, v, 2*x + 1, lx, m);
+			add(i, v, 2*x + 1, lx, m);
 		}else{
 			// goto right node
-			set(i, v, 2*x + 2, m, rx);
+			add(i, v, 2*x + 2, m, rx);
 		}
 		
 		// doesn't go o.o.b as x is not a leaf
@@ -92,30 +96,80 @@ struct segtree {
 		
 		return assoc(sum(l, r, 2*x + 1, lx, m), sum(l, r, 2*x + 2, m, rx));
 	}
+	
+	int ordfind(int k, int x, int lx, int rx){
+		//cout << k << " " << lx << " " << rx << endl;
+		if(rx-lx == 1) return lx;
+		int ls = sums[2*x+1];
+		int m = (lx+rx)/2;
+		if(ls >= k){
+			return ordfind(k, 2*x+1, lx, m);
+		}else{
+			return ordfind(k-ls, 2*x+2, m, rx);
+		}
+	}
+	
+	int ordfind(int k){
+		return ordfind(k, 0, 0, size);
+	}
+	
+	void print(){
+		cout << "===" << endl;
+		int lv = 1, c = 0;
+		for(int i = 0; i < sums.size()-1; i++){
+			cout << sums[i] << " ";
+			c++;
+			if(c == lv){
+				lv *= 2;
+				c = 0;
+				cout << endl;
+			}
+		}
+		cout << "===" << endl;
+	}
 };
 
+
 void solve() {
-	int n, m;
-	cin >> n >> m;
+	int n,q;
+	cin >> n >> q;
 	
-	vector<int> v(n);
+	vector<int> ac(n);
 	for(int i = 0; i < n; i++){
-		cin >> v[i];
+		int v;
+		cin >> v;
+		ac[v-1]++;
 	}
 	
 	segtree<ll> sgt;
-	sgt.init(v);
+	sgt.init(ac);
 	
-	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
+	//sgt.print();
 	
-		if(o == 1){
-			sgt.set(a,b);
-		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
+	for(int i = 0; i < q; i++){
+		int op;
+		cin >> op;
+		if(op < 0){
+			int pos = sgt.ordfind(-op);
+			sgt.add(pos, -1);
+		}else{
+			sgt.add(op-1, 1);
+		}
+		//sgt.print();
+	}
+	
+	int ans = 0;
+	
+	for(int i = 0; i < n; i++){
+		int val = sgt.sum(i,i+1);
+		// cout << val << " ";
+		if(val != 0){
+			ans = i+1;
+			// break;
 		}
 	}
+	// cout << endl;
+	cout << ans << endl;
 }
 
 int main() {

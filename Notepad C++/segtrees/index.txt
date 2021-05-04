@@ -1,0 +1,14 @@
+Segment Tree Part 1
+1A - Sum
+1B - Minimum
+1C - # of Minima
+2A - Segment w/ Max Sum
+2B - K-th One
+2C/D - First element at least X
+3A/B - Inversions
+3C - Nested Segments
+3D - Intersecting Segments
+3E - Addition to Segment *** My solution = Mass Change.
+4A - Alternating (+/-) Sums
+4B - 2x2 Matrix Product
+4C - Inversions on Segment

@@ -13,7 +13,7 @@ struct segtree {
 	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
+	static const int DV = 0;
 	
 	T assoc(T a, T b){
 		return a + b;
@@ -25,12 +25,12 @@ struct segtree {
 		sums.assign(2*size, DV);
 	}
 	
-	void init(vector<T> &a){
+	void init(vector<int> &a){
 		init(a.size());
 		build(a);
 	}
 	
-	void build(vector<T> &a, int x, int lx, int rx){
+	void build(vector<int> &a, int x, int lx, int rx){
 		// if in bottom layer, check if within "actual" elems (not added 0s)
 		if(rx-lx == 1){
 			if(lx < a.size()){
@@ -45,16 +45,16 @@ struct segtree {
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
 	}
 	
-	void build(vector<T> &a){
+	void build(vector<int> &a){
 		build(a, 0, 0, size);
 	}
 	
-	void set(int i, T v){
+	void set(int i, int v){
 		if(i < 0 || i >= size) return;
 		set(i, v, 0, 0, size);
 	}
 	
-	void set(int i, T v, int x, int lx, int rx){
+	void set(int i, int v, int x, int lx, int rx){
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
 			sums[x] = v;
@@ -119,7 +119,6 @@ void solve() {
 }
 
 int main() {
-	ios::sync_with_stdio(false);
 	solve();
 	return 0;
 }

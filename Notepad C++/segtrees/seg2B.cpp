@@ -13,7 +13,7 @@ struct segtree {
 	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
+	static const int DV = 0;
 	
 	T assoc(T a, T b){
 		return a + b;
@@ -22,15 +22,15 @@ struct segtree {
 	void init(int n){
 		size = 1;
 		while(size < n) size*=2;
-		sums.assign(2*size, DV);
+		sums.resize(2*size);
 	}
 	
-	void init(vector<T> &a){
+	void init(vector<int> &a){
 		init(a.size());
 		build(a);
 	}
 	
-	void build(vector<T> &a, int x, int lx, int rx){
+	void build(vector<int> &a, int x, int lx, int rx){
 		// if in bottom layer, check if within "actual" elems (not added 0s)
 		if(rx-lx == 1){
 			if(lx < a.size()){
@@ -45,19 +45,19 @@ struct segtree {
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
 	}
 	
-	void build(vector<T> &a){
+	void build(vector<int> &a){
 		build(a, 0, 0, size);
 	}
 	
-	void set(int i, T v){
+	void set(int i){
 		if(i < 0 || i >= size) return;
-		set(i, v, 0, 0, size);
+		set(i, 0, 0, size);
 	}
 	
-	void set(int i, T v, int x, int lx, int rx){
+	void set(int i, int x, int lx, int rx){
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
-			sums[x] = v;
+			sums[x] = 1 - sums[x];
 			return;
 		}
 		
@@ -65,32 +65,33 @@ struct segtree {
 		// i is in left
 		if(i < m){
 			// goto left node
-			set(i, v, 2*x + 1, lx, m);
+			set(i, 2*x + 1, lx, m);
 		}else{
 			// goto right node
-			set(i, v, 2*x + 2, m, rx);
+			set(i, 2*x + 2, m, rx);
 		}
 		
 		// doesn't go o.o.b as x is not a leaf
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
 	}
 	
-	T sum(int l, int r){
-		return sum(l, r, 0, 0, size);
+	T find(int i){
+		return find(i, 0, 0, size);
 	}
 	
-	T sum(int l, int r, int x, int lx, int rx){
+	T find(int i, int x, int lx, int rx){	
+		if(rx-lx == 1) return lx;
 		
-		// segment is completely outside
-		if(rx <= l || lx >= r) return DV;
-		
-		// segment is completely contained
-		if(l <= lx && rx <= r) return sums[x];
-		
-		// segment is partially contained (recursive case)
+		int l = sums[2*x + 1];
 		int m = (lx+rx)/2;
 		
-		return assoc(sum(l, r, 2*x + 1, lx, m), sum(l, r, 2*x + 2, m, rx));
+		if(l <= i){
+			// R
+			return find(i-l, 2*x + 2, m, rx);
+		}else{
+			// L
+			return find(i, 2*x + 1, lx, m);
+		}
 	}
 };
 
@@ -103,23 +104,22 @@ void solve() {
 		cin >> v[i];
 	}
 	
-	segtree<ll> sgt;
+	segtree<int> sgt;
 	sgt.init(v);
 	
 	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
+		int o, a;
+		cin >> o >> a;
 	
 		if(o == 1){
-			sgt.set(a,b);
+			sgt.set(a);
 		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
+			cout << sgt.find(a) << endl;
 		}
 	}
 }
 
 int main() {
-	ios::sync_with_stdio(false);
 	solve();
 	return 0;
 }

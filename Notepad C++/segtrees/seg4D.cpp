@@ -8,33 +8,38 @@ typedef pair<ll,ll> pll;
 #define pb push_back
 #define mp make_pair
 
+const int MXA = 40;
+
 template <typename T>
 struct segtree {
-	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
+	vector<bool> DV;
 	
 	T assoc(T a, T b){
-		return a + b;
+		vector<bool> res(MXA+1);
+		for(int i = 1; i <= MXA; i++)
+			res[i] = a[i] | b[i];
+		return res;
 	}
 	
 	void init(int n){
+		DV.assign(MXA+1, 0);
 		size = 1;
 		while(size < n) size*=2;
 		sums.assign(2*size, DV);
 	}
 	
-	void init(vector<T> &a){
+	void init(vector<int> &a){
 		init(a.size());
 		build(a);
 	}
 	
-	void build(vector<T> &a, int x, int lx, int rx){
+	void build(vector<int> &a, int x, int lx, int rx){
 		// if in bottom layer, check if within "actual" elems (not added 0s)
 		if(rx-lx == 1){
 			if(lx < a.size()){
-				sums[x] = a[lx];
+				sums[x][a[lx]] = 1;
 			}
 			return;
 		}
@@ -45,19 +50,20 @@ struct segtree {
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
 	}
 	
-	void build(vector<T> &a){
+	void build(vector<int> &a){
 		build(a, 0, 0, size);
 	}
 	
-	void set(int i, T v){
+	void set(int i, int v){
 		if(i < 0 || i >= size) return;
 		set(i, v, 0, 0, size);
 	}
 	
-	void set(int i, T v, int x, int lx, int rx){
+	void set(int i, int v, int x, int lx, int rx){
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
-			sums[x] = v;
+			sums[x].assign(MXA+1, 0);
+			sums[x][v] = 1;
 			return;
 		}
 		
@@ -98,22 +104,27 @@ void solve() {
 	int n, m;
 	cin >> n >> m;
 	
-	vector<int> v(n);
+	vector<int> a(n);
 	for(int i = 0; i < n; i++){
-		cin >> v[i];
+		cin >> a[i];
 	}
 	
-	segtree<ll> sgt;
-	sgt.init(v);
+	segtree<vector<bool>> sgt;
+	sgt.init(a);
 	
-	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
-	
-		if(o == 1){
-			sgt.set(a,b);
-		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
+	for(int q = 0; q < m; q++){
+		int t,x,y;
+		cin >> t >> x >> y;
+		if(t == 1){
+			vector<bool> v = sgt.sum(x-1, y);
+			
+			int ans = 0;
+			for(int i = 1; i <= MXA; i++)
+				ans += v[i];
+			
+			cout << ans << endl;
+		}else{
+			sgt.set(x-1, y);
 		}
 	}
 }

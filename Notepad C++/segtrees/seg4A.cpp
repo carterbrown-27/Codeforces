@@ -95,31 +95,62 @@ struct segtree {
 };
 
 void solve() {
-	int n, m;
-	cin >> n >> m;
+	int n;
+	cin >> n;
 	
-	vector<int> v(n);
+	vector<int> a(n);
+	for(int i = 0; i < n; i++)
+		cin >> a[i];
+	
+	vector<int> evens(n);
+	vector<int> odds(n);
 	for(int i = 0; i < n; i++){
-		cin >> v[i];
+		if(i&1){
+			odds[i] = a[i];
+		}else{
+			evens[i] = a[i];
+		}
 	}
 	
-	segtree<ll> sgt;
-	sgt.init(v);
+	segtree<int> est;
+	est.init(evens);
+	segtree<int> ost;
+	ost.init(odds);
 	
-	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
+	int m;
+	cin >> m;
 	
-		if(o == 1){
-			sgt.set(a,b);
-		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
+	for(int q = 0; q < m; q++){
+		int o;
+		cin >> o;
+		if(o == 0){
+			int i, j;
+			cin >> i >> j;
+			i--;
+			
+			if(i&1){
+				ost.set(i, j);
+			}else{
+				est.set(i, j);
+			}
+		}else if(o == 1){
+			int l, r;
+			cin >> l >> r;
+			l--;
+			
+			int ans;
+			if(l&1){
+				ans = ost.sum(l, r) - est.sum(l, r);
+			}else{
+				ans = est.sum(l, r) - ost.sum(l, r);
+			}
+			
+			cout << ans << endl;
 		}
 	}
 }
 
 int main() {
-	ios::sync_with_stdio(false);
 	solve();
 	return 0;
 }

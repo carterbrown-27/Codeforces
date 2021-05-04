@@ -13,7 +13,6 @@ struct segtree {
 	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
 	
 	T assoc(T a, T b){
 		return a + b;
@@ -22,15 +21,15 @@ struct segtree {
 	void init(int n){
 		size = 1;
 		while(size < n) size*=2;
-		sums.assign(2*size, DV);
+		sums.assign(2*size, 0);
 	}
 	
-	void init(vector<T> &a){
+	void init(vector<int> &a){
 		init(a.size());
 		build(a);
 	}
 	
-	void build(vector<T> &a, int x, int lx, int rx){
+	void build(vector<int> &a, int x, int lx, int rx){
 		// if in bottom layer, check if within "actual" elems (not added 0s)
 		if(rx-lx == 1){
 			if(lx < a.size()){
@@ -45,16 +44,16 @@ struct segtree {
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
 	}
 	
-	void build(vector<T> &a){
+	void build(vector<int> &a){
 		build(a, 0, 0, size);
 	}
 	
-	void set(int i, T v){
+	void set(int i, int v){
 		if(i < 0 || i >= size) return;
 		set(i, v, 0, 0, size);
 	}
 	
-	void set(int i, T v, int x, int lx, int rx){
+	void set(int i, int v, int x, int lx, int rx){
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
 			sums[x] = v;
@@ -82,7 +81,7 @@ struct segtree {
 	T sum(int l, int r, int x, int lx, int rx){
 		
 		// segment is completely outside
-		if(rx <= l || lx >= r) return DV;
+		if(rx <= l || lx >= r) return 0;
 		
 		// segment is completely contained
 		if(l <= lx && rx <= r) return sums[x];
@@ -98,28 +97,31 @@ void solve() {
 	int n, m;
 	cin >> n >> m;
 	
-	vector<int> v(n);
-	for(int i = 0; i < n; i++){
-		cin >> v[i];
+	vector<segtree<int>> sgts(40);
+	for(int i = 0; i < sgts.size(); i++){
+		sgts[i].init(n);
 	}
 	
-	segtree<ll> sgt;
-	sgt.init(v);
+	for(int i = 0; i < n; i++){
+		int x;
+		cin >> x;
+		sgts[x-1].set(i, 1);
+	}
 	
-	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
-	
-		if(o == 1){
-			sgt.set(a,b);
-		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
+	for(int q = 0; q < m; q++){
+		int t,x,y;
+		cin >> t >> x >> y;
+		if(t == 1){
+			int ans = 0;
+			
+			cout << ans << endl;
+		}else{
+			sgt.set(x-1, y);
 		}
 	}
 }
 
 int main() {
-	ios::sync_with_stdio(false);
 	solve();
 	return 0;
 }

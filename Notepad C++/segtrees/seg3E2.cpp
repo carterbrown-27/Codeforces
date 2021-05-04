@@ -13,7 +13,7 @@ struct segtree {
 	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
+	static const int DV = 0;
 	
 	T assoc(T a, T b){
 		return a + b;
@@ -25,30 +25,6 @@ struct segtree {
 		sums.assign(2*size, DV);
 	}
 	
-	void init(vector<T> &a){
-		init(a.size());
-		build(a);
-	}
-	
-	void build(vector<T> &a, int x, int lx, int rx){
-		// if in bottom layer, check if within "actual" elems (not added 0s)
-		if(rx-lx == 1){
-			if(lx < a.size()){
-				sums[x] = a[lx];
-			}
-			return;
-		}
-		int m = (lx + rx) / 2;
-		build(a, 2*x + 1, lx, m);
-		build(a, 2*x + 2, m, rx);
-		
-		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
-	}
-	
-	void build(vector<T> &a){
-		build(a, 0, 0, size);
-	}
-	
 	void set(int i, T v){
 		if(i < 0 || i >= size) return;
 		set(i, v, 0, 0, size);
@@ -57,7 +33,7 @@ struct segtree {
 	void set(int i, T v, int x, int lx, int rx){
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
-			sums[x] = v;
+			sums[x] += v;
 			return;
 		}
 		
@@ -73,6 +49,11 @@ struct segtree {
 		
 		// doesn't go o.o.b as x is not a leaf
 		sums[x] = assoc(sums[2*x+1], sums[2*x+2]);
+	}
+	
+	void add(int l, int r, int v){
+		set(l, v);
+		set(r, -v);
 	}
 	
 	T sum(int l, int r){
@@ -92,34 +73,35 @@ struct segtree {
 		
 		return assoc(sum(l, r, 2*x + 1, lx, m), sum(l, r, 2*x + 2, m, rx));
 	}
+	
+	T get(int i){
+		return sum(0,i+1);
+	}
 };
 
 void solve() {
 	int n, m;
 	cin >> n >> m;
 	
-	vector<int> v(n);
-	for(int i = 0; i < n; i++){
-		cin >> v[i];
-	}
-	
 	segtree<ll> sgt;
-	sgt.init(v);
+	sgt.init(n);
 	
-	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
-	
+	for(int q = 0; q < m; q++){
+		int o;
+		cin >> o;
 		if(o == 1){
-			sgt.set(a,b);
+			int l, r, v;
+			cin >> l >> r >> v;
+			sgt.add(l,r,v);
 		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
+			int i;
+			cin >> i;
+			cout << sgt.get(i) << endl;
 		}
 	}
 }
 
 int main() {
-	ios::sync_with_stdio(false);
 	solve();
 	return 0;
 }

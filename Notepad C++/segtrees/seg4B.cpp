@@ -8,21 +8,54 @@ typedef pair<ll,ll> pll;
 #define pb push_back
 #define mp make_pair
 
+int MOD;
+
+struct matrix {
+	int vals[2][2];
+	
+	friend ostream& operator<<(ostream& out, const matrix& mat); 
+};
+
+ostream& operator<<(ostream& out, const matrix& mat){
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < 2; j++){
+			out << mat.vals[i][j] << " ";
+		}
+		out << "\n";
+	}
+	return out;
+}
+
 template <typename T>
 struct segtree {
 	
 	int size;
 	vector<T> sums;
-	const int DV = 0;
+	matrix DV;
 	
 	T assoc(T a, T b){
-		return a + b;
+		// TODO consider making matrix product template
+		matrix res;
+		for(int i = 0; i < 2; i++){
+			for(int j = 0; j < 2; j++){
+				int sum = 0;
+				for(int x = 0; x < 2; x++){
+					sum += a.vals[i][x] * b.vals[x][j];
+				}
+				
+				res.vals[i][j] = sum % MOD;
+			}
+		}
+		return res;
 	}
 	
 	void init(int n){
+		for(int i = 0; i < 2; i++)
+			for(int j = 0; j < 2; j++)
+				DV.vals[i][j] = (i==j);
 		size = 1;
 		while(size < n) size*=2;
-		sums.assign(2*size, DV);
+		sums.resize(2*size);
 	}
 	
 	void init(vector<T> &a){
@@ -95,26 +128,25 @@ struct segtree {
 };
 
 void solve() {
+	cin >> MOD;
+	
 	int n, m;
 	cin >> n >> m;
 	
-	vector<int> v(n);
-	for(int i = 0; i < n; i++){
-		cin >> v[i];
-	}
+	vector<matrix> v(n);
 	
-	segtree<ll> sgt;
+	for(int x = 0; x < n; x++)
+		for(int i = 0; i < 2; i++)
+			for(int j = 0; j < 2; j++)
+				cin >> v[x].vals[i][j];
+	
+	segtree<matrix> sgt;
 	sgt.init(v);
 	
-	for(int i = 0; i < m; i++){
-		int o, a, b;
-		cin >> o >> a >> b;
-	
-		if(o == 1){
-			sgt.set(a,b);
-		}else if(o == 2){
-			cout << sgt.sum(a,b) << endl;
-		}
+	for(int q = 0; q < m; q++){
+		int l, r;
+		cin >> l >> r;
+		cout << sgt.sum(l-1,r) << endl;
 	}
 }
 
