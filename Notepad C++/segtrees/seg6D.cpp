@@ -8,26 +8,38 @@ typedef pair<ll,ll> pll;
 #define pb push_back
 #define mp make_pair
 
+const int MOD = 1e9 + 7;
+
 // Mass-Change Segment Tree
 template <typename T>
 struct segtree {
 	
 	int size;
-	vector<T> sums;
-	static const int DV = 0;
+	vector<T> sums; // op
+	vector<T> res; // calcOp = op;
+	static T DV;
 	
-	T assoc(T a, T b){
+	T op(T a, T b, int len){
+		return a + (b * len);
+	}
+	
+	T calcOp(T a, T b){
+		return op(a,b);
+	}
+	
+	T op(T a, T b){
 		return a + b;
 	}
 	
-	void apply(T &a, T b){
-		a = op(a,b);
+	void apply(T &a, T b, int len){
+		a = op(a, b, len);
 	}
 	
 	void init(int n){
 		size = 1;
 		while(size < n) size*=2;
-		sums.assign(2*size, DV);
+		sums.assign(2*size, 0);
+		res.assign(2*size, 0);
 	}
 	
 	T get(int i){
@@ -45,10 +57,10 @@ struct segtree {
 		// i is in left
 		if(i < m){
 			// goto left node
-			return assoc(sums[x], get(i, 2*x + 1, lx, m));
+			return op(sums[x], get(i, 2*x + 1, lx, m));
 		}else{
 			// goto right node
-			return assoc(sums[x],  get(i, 2*x + 2, m, rx));
+			return op(sums[x], get(i, 2*x + 2, m, rx));
 		}
 	}
 	
@@ -63,7 +75,8 @@ struct segtree {
 		
 		// segment is completely contained
 		if(l <= lx && rx <= r){
-			apply(sums[x], v);
+			apply(sums[x], v, 1);
+			apply(res[x], v, rx-lx);
 			return;
 		} 
 		
@@ -71,8 +84,32 @@ struct segtree {
 		int m = (lx+rx)/2;
 		add(l, r, v, 2*x+1, lx, m);
 		add(l, r, v, 2*x+2, m, rx);
+		
+		res[x] = op(calcOp(res[2*x+1], res[2*x+2]), sums[x], rx-lx);
+	}
+	
+	T calc(int l, int r){
+		return calc(l, r, 0, 0, size);
+	}
+	
+	T calc(int l, int r, int x, int lx, int rx){
+		
+		// segment is completely outside
+		if(rx <= l || lx >= r) return DV;
+		
+		// segment is completely contained
+		if(l <= lx && rx <= r){
+			return res[x];
+		} 
+		
+		// segment is partially contained (recursive case)
+		int m = (lx+rx)/2;
+		T res = calcOp(calc(l, r, 2*x+1, lx, m), calc(l, r, 2*x+2, m, rx));
+		return op(res, sums[x], min(rx,r) - max(lx, l));
 	}
 };
+
+template<> ll segtree<ll>::DV = 0;
 
 void solve() {
 	int n, m;
@@ -89,9 +126,9 @@ void solve() {
 			cin >> l >> r >> v;
 			sgt.add(l,r,v);
 		}else if(o == 2){
-			int i;
-			cin >> i;
-			cout << sgt.get(i) << endl;
+			int l, r;
+			cin >> l >> r;
+			cout << sgt.calc(l,r) << endl;
 		}
 	}
 }

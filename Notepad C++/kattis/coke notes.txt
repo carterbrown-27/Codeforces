@@ -1,0 +1,19 @@
+dp[1s][5s][10s][Cokes]
+
+change[spent][cokes] = {1s,5s,10s};
+--> Calculate on demand?
+can't get any 5s/10s as change? (when acting optimally)
+
+use 10s
+use 5s
++= remaining 1s
+
+2 = 5 5
+4 = 5 1 1 1
+(-2)
+
+4 = 5 1 1 1
+8 = 1 1 1 1 1 1 1 1
+(+4)
+
+minimize dp[5s rem][1s rem][cokes purchased] = coins used

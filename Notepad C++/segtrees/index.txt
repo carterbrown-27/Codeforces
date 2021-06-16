@@ -2,9 +2,11 @@ Segment Tree Part 1
 1A - Sum
 1B - Minimum
 1C - # of Minima
+Important Query Types===
 2A - Segment w/ Max Sum
 2B - K-th One
 2C/D - First element at least X
+Applications ===
 3A/B - Inversions
 3C - Nested Segments
 3D - Intersecting Segments
@@ -12,3 +14,13 @@ Segment Tree Part 1
 4A - Alternating (+/-) Sums
 4B - 2x2 Matrix Product
 4C - Inversions on Segment
+MCSTs ===
+5A - +/get
+5B - max/get
+5C - =/get
+6A - +/min
+6B - */+
+6C - |/&
+6D - +/+
+6E - =/min
+6F - =/+

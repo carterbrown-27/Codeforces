@@ -16,9 +16,17 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 int main() {
-	ios::sync_with_stdio(false);
+	int n;
+	cin >> n;
 	
+	int a = 1;
+	for(int x = 2; x*x <= n; x++){
+		if(n%x == 0){
+			a = n/x;
+			break;
+		}
+	}
 	
-	
+	cout << n-a << endl;
 	return 0;
 }

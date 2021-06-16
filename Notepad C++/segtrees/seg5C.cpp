@@ -8,20 +8,20 @@ typedef pair<ll,ll> pll;
 #define pb push_back
 #define mp make_pair
 
-// Mass-Change Segment Tree
-template <typename T>
 struct segtree {
 	
 	int size;
-	vector<T> sums;
-	static const int DV = 0;
+	vector<ll> sums;
+	const ll NONE = -1;
+	const ll DV = 0;
 	
-	T assoc(T a, T b){
-		return a + b;
+	ll assoc(ll a, ll b){
+		if(b==NONE) return a;
+		return b;
 	}
 	
-	void apply(T &a, T b){
-		a = op(a,b);
+	void apply(ll& a, ll b){
+		a = assoc(a,b);
 	}
 	
 	void init(int n){
@@ -30,12 +30,13 @@ struct segtree {
 		sums.assign(2*size, DV);
 	}
 	
-	T get(int i){
+	ll get(int i){
 		if(i < 0 || i >= size) return -1;
 		return get(i, 0, 0, size);
 	}
 	
-	T get(int i, int x, int lx, int rx){
+	ll get(int i, int x, int lx, int rx){
+		prop(x, lx, rx);
 		// if x is a leaf, set it directly
 		if(rx-lx == 1){
 			return sums[x];
@@ -45,11 +46,18 @@ struct segtree {
 		// i is in left
 		if(i < m){
 			// goto left node
-			return assoc(sums[x], get(i, 2*x + 1, lx, m));
+			return get(i, 2*x + 1, lx, m);
 		}else{
 			// goto right node
-			return assoc(sums[x],  get(i, 2*x + 2, m, rx));
+			return get(i, 2*x + 2, m, rx);
 		}
+	}
+	
+	void prop(int x, int lx, int rx){
+		if(rx-lx == 1) return;
+		apply(sums[2*x+1], sums[x]);
+		apply(sums[2*x+2], sums[x]);
+		sums[x] = NONE;
 	}
 	
 	void add(int l, int r, int v){
@@ -57,7 +65,7 @@ struct segtree {
 	}
 	
 	void add(int l, int r, int v, int x, int lx, int rx){
-		
+		prop(x, lx, rx);
 		// segment is completely outside
 		if(rx <= l || lx >= r) return;
 		
@@ -65,7 +73,7 @@ struct segtree {
 		if(l <= lx && rx <= r){
 			apply(sums[x], v);
 			return;
-		} 
+		}
 		
 		// segment is partially contained (recursive case)
 		int m = (lx+rx)/2;
@@ -78,7 +86,7 @@ void solve() {
 	int n, m;
 	cin >> n >> m;
 	
-	segtree<ll> sgt;
+	segtree sgt;
 	sgt.init(n);
 	
 	for(int q = 0; q < m; q++){

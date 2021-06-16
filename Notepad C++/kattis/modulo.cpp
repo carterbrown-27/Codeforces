@@ -15,10 +15,20 @@ using uset = unordered_set<T>;
 
 #define pb push_back
 
+// trivial
 int main() {
 	ios::sync_with_stdio(false);
 	
+	const int MOD = 42, N = 10;
+	set<int> st;
 	
+	for(int i = 0; i < N; i++){
+		int v;
+		cin >> v;
+		st.insert(v%MOD);
+	}
+	
+	cout << st.size() << endl;
 	
 	return 0;
 }
