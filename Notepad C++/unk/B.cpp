@@ -20,7 +20,24 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	string s;
+	cin >> s;
+	
+	const int k = 2;
+	const int C = 26;
+	array<int,C> t = {0};
+	
+	for(char c: s)
+		t[c-'a']++;
+	
+	int unique = 0;
+	for(int x: t){
+		unique += min(k, x);
+	}
+	
+	int ans = unique / k;
+	
+	cout << ans << endl;
 }
 
 int main() {

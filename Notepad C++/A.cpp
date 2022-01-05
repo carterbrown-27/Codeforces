@@ -20,7 +20,25 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	int n, k;
+	cin >> n >> k;
+	
+	if((n+1)/2 < k){
+		cout << -1 << endl;
+		return;
+	}
+	
+	vector<vector<char>> b(n, vector<char>(n, '.'));
+	for(int i = 0; i < k; i++){
+		b[i*2][i*2] = 'R';
+	}
+	
+	for(auto r : b){
+		for(auto c : r){
+			cout << c;
+		}
+		cout << endl;
+	}
 }
 
 int main() {

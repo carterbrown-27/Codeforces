@@ -20,7 +20,32 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	int a, b;
+	cin >> a >> b;
+	
+	int k = a;
+	int n = a-1;
+	int x;
+	int r = n % 4;
+	
+	if(r == 0){
+		x = n;
+	}else if(r == 1){
+		x = 1;
+	}else if(r == 2){
+		x = n+1;
+	}else{
+		x = 0;
+	}
+	
+	if(x == b){
+		cout << k << endl;
+	}else if((x^b) != a){
+		// insert x ^ b
+		cout << k + 1 << endl;
+	}else{
+		cout << k + 2 << endl;
+	}
 }
 
 int main() {

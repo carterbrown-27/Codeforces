@@ -20,7 +20,16 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	int n;
+	cin >> n;
+	
+	int ones = n/3;
+	n -= ones;
+	int twos = n/2;
+	n -= 2*twos;
+	ones += n;
+	
+	cout << ones << " " << twos << endl;
 }
 
 int main() {

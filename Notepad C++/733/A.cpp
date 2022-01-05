@@ -4,23 +4,28 @@ using namespace std;
 
 typedef long long ll;
 
-struct point {
-	int x,y;
-};
-
 template<typename T>
 using minpq = priority_queue<T, vector<T>, greater<T>>;
-
-template<typename T, typename U>
-using umap = unordered_map<T,U>;
 
 template<typename T>
 using uset = unordered_set<T>;
 
+template<typename T, typename U>
+using umap = unordered_map<T,U>;
+
 #define pb push_back
 
 void solve() {
-
+	int n;
+	cin >> n;
+	
+	int mx = 0;
+	while(n>0){
+		mx = max(mx, n%10);
+		n/=10;
+	}
+	
+	cout << mx << endl;
 }
 
 int main() {

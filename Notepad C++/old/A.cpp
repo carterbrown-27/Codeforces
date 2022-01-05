@@ -20,7 +20,17 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	int n, s;
+	cin >> n >> s;
+	
+	int c;
+	if(n%2 == 0){
+		c = n/2 +1;
+	}else{
+		c = n - n/2;
+	}
+	
+	cout << s/c << endl;
 }
 
 int main() {

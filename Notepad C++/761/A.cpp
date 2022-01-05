@@ -20,7 +20,25 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	string s, t;
+	cin >> s >> t;
+	
+	vector<int> cnt(26);
+	for(char c : s)
+		cnt[c-'a']++;
+		
+	if(t == "abc" && cnt[0] > 0){
+		while(cnt[0]-- > 0) cout << 'a';
+		while(cnt[2]-- > 0) cout << 'c';
+		while(cnt[1]-- > 0) cout << 'b';
+	}
+	
+	for(int i = 0; i < cnt.size(); i++){
+		for(int j = 0; j < cnt[i]; j++){
+			cout << (char)('a'+i);
+		}
+	}
+	cout << endl;
 }
 
 int main() {

@@ -20,7 +20,26 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	string t;
+	cin >> t;
+	
+	uset<char> seen;
+	vector<char> order;
+	
+	int i = n-1;
+	while(i >= 0)
+	{
+		char last = t[i];
+		order.pb(last);
+		seen.insert(last);
+		
+		for(int j = i; j-- > 0 && seen.find(t[j]) != seen.end();)
+		{
+			
+		}
+		
+		i = j; // new character here
+	}
 }
 
 int main() {

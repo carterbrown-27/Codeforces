@@ -22,7 +22,7 @@ int solve(int pos, int c, bool isLess){
 	
 	int sum = 0;
 	for(int d = 0; d <= mx; d++){
-		sum = (sum + solve(pos+1, c + (d != 0), isLess | d < mx)) % MOD;
+		sum = (sum + solve(pos+1, c + (d != 0), isLess || d < mx)) % MOD;
 	}
 	
 	return dp[pos][c][isLess] = sum % MOD;

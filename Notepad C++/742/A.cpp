@@ -20,7 +20,23 @@ using uset = unordered_set<T>;
 #define pb push_back
 
 void solve() {
-
+	int n;
+	cin >> n;
+	string s;
+	cin >> s;
+	
+	string ans;
+	for(char c: s){
+		if(c == 'U'){
+			ans += 'D';
+		}else if(c == 'D'){
+			ans += 'U';
+		}else{
+			ans += c;
+		}
+	}
+	
+	cout << ans << endl;
 }
 
 int main() {

@@ -19,8 +19,17 @@ using uset = unordered_set<T>;
 
 #define pb push_back
 
-void solve() {
 
+void solve() {
+	int ang;
+	cin >> ang;
+	
+	int g = __gcd(ang, 180);
+	int n = 180 / g;
+	if(ang / g >= n-1)
+		n *= 2;
+	
+	cout << n << endl;
 }
 
 int main() {
@@ -28,6 +37,7 @@ int main() {
 	
 	int t;
 	cin >> t;
+	
 	for (int i = 0; i < t; i++) {
 		solve();
 	}
