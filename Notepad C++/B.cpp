@@ -10,59 +10,45 @@ struct point {
 
 template<typename T>
 using minpq = priority_queue<T, vector<T>, greater<T>>;
+template<typename T>
+using minpq = priority_queue<T, vector<T>, greater<T>>;
+
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        // http://xorshift.di.unimi.it/splitmix64.c
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
 
 template<typename T, typename U>
-using umap = unordered_map<T,U>;
+using umap = unordered_map<T,U,custom_hash>;
 
 template<typename T>
-using uset = unordered_set<T>;
+using uset = unordered_set<T,custom_hash>;
 
+#define FOR(i, l, r) for (int i = (l); (i) < (r); (i)++)
+#define all(x) (x).begin(), (x).end()
 #define pb push_back
 
-void solve() {
-	int n;
-	cin >> n;
-	
-	int l[n], r[n], c[n];
-	for(int i = 0; i < n; i++){
-		cin >> l[i] >> r[i] >> c[i];
-	}
-	
-	vector<int> lm, rm;
-	const int INF = 2e9+1;
-	int mnlc = INF, mnrc = INF;
-	int cur_mn = INF;
-	
-	for(int i = 0; i < n; i++){
-		bool in_both = true;
-		if(lm.empty() || l[i] <= l[lm[0]]){
-			if(!lm.empty() && l[i] < l[lm[0]]){
-				lm.clear();
-				cur_mn = INF;
-				mnlc = INF;
-			}
-			lm.pb(i);
-			mnlc = min(mnlc, c[i]);
-		}else{
-			in_both = false;
-		}
-		
-		if(rm.empty() || r[i] >= r[rm[0]]){
-			if(!rm.empty() && r[i] > r[rm[0]]){
-				rm.clear();
-				cur_mn = INF;
-				mnrc = INF;
-			}
-			rm.pb(i);
-			mnrc = min(mnrc, c[i]);
-		}else{
-			in_both = false;
-		}
-		
-		cur_mn = in_both ? min(cur_mn, c[i]) : min(cur_mn, mnlc + mnrc);
-		// cout << in_lm << " " << in_rm << endl;
-		cout << cur_mn << endl;
-	}
+bool solve() {
+    string a,b;
+    cin >> a >> b;
+    int n = a.length();
+    for(int i = 0; i < n-1; i++){
+        if(a[i] == '0' && b[i] == '0' && a[i+1] == '1' && b[i+1] == '1'){
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 int main() {
@@ -71,7 +57,7 @@ int main() {
 	int t;
 	cin >> t;
 	for (int i = 0; i < t; i++) {
-		solve();
+		cout << (solve() ? "YES" : "NO") << endl;
 	}
 	return 0;
 }
